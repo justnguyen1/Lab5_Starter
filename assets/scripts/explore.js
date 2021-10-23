@@ -2,30 +2,33 @@
 window.addEventListener('DOMContentLoaded', init);
 
 function init() {
-  let speech = window.speechSynthesis;
-  let voices = [];
+  const speech = window.speechSynthesis;
+  const dropdown = document.getElementById('voice-select');
+  const pressToTalkButton = document.querySelector('button');
+  const textArea = document.querySelector('textarea');
+  const faceImage = document.querySelector('img');
+
   setTimeout(function() {
-    voices = speech.getVoices();
-    const dropdown = document.getElementById('voice-select');
+    const voices = speech.getVoices();
     loadVoices(dropdown, voices);
-    const pressToTalkButton = document.querySelector('button');
-    const textArea = document.querySelector('textarea');
-    const faceImage = document.querySelector('img');
   
     pressToTalkButton.addEventListener('click', function() {
-      let textToSpeak = new SpeechSynthesisUtterance(textArea.value);
-      let selectedOption = dropdown.selectedOptions[0].getAttribute('data-name');
-      for (const voice of voices) {
-        if (voice.name === selectedOption) {
-          textToSpeak.voice = voice;
+      if (textArea.value) {
+        let textToSpeak = new SpeechSynthesisUtterance(textArea.value);
+        console.log(textArea.value);
+        let selectedOption = dropdown.selectedOptions[0].getAttribute('data-name');
+        for (const voice of voices) {
+          if (voice.name === selectedOption) {
+            textToSpeak.voice = voice;
+          }
         }
-      }
-      speech.speak(textToSpeak);
-      faceImage.setAttribute('src', 'assets/images/smiling-open.png');
-      faceImage.setAttribute('alt', 'Open mouth');
-      textToSpeak.onend = function() {
-        faceImage.setAttribute('src', 'assets/images/smiling.png');
-        faceImage.setAttribute('alt', 'Smiling face');
+        speech.speak(textToSpeak);
+        faceImage.setAttribute('src', 'assets/images/smiling-open.png');
+        faceImage.setAttribute('alt', 'Open mouth');
+        textToSpeak.onend = function() {
+          faceImage.setAttribute('src', 'assets/images/smiling.png');
+          faceImage.setAttribute('alt', 'Smiling face');
+        }
       }
     });
   }, 50);
