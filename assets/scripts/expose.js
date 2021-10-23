@@ -3,7 +3,6 @@
 window.addEventListener('DOMContentLoaded', init);
 
 function init() {
-	// TODO
 	const dropdown = document.getElementById('horn-select');
 	const hornImage = document.querySelector('header+img');
 	const soundImage = document.querySelector('input+img');
