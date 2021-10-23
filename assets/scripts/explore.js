@@ -9,7 +9,8 @@ function init() {
   loadVoices(dropdown, voices);
   const pressToTalkButton = document.querySelector('button');
   const textArea = document.querySelector('textarea');
-  
+  const faceImage = document.querySelector('img');
+
   pressToTalkButton.addEventListener('click', function() {
     let textToSpeak = new SpeechSynthesisUtterance(textArea.value);
     let selectedOption = dropdown.selectedOptions[0].getAttribute('data-name');
@@ -19,7 +20,12 @@ function init() {
       }
     }
     speech.speak(textToSpeak);
-
+    faceImage.setAttribute('src', 'assets/images/smiling-open.png');
+    faceImage.setAttribute('alt', 'Open mouth');
+    textToSpeak.onend = function() {
+      faceImage.setAttribute('src', 'assets/images/smiling.png');
+      faceImage.setAttribute('alt', 'Smiling face');
+    }
   });
 }
 
