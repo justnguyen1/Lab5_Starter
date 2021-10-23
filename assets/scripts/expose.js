@@ -50,7 +50,7 @@ function init() {
 
 	playButton.addEventListener('click', function() {
 		audio.play();
-		if (dropdown.value == 'party-horn') {
+		if (dropdown.value == 'party-horn' && volume.value > 0) {
 			confetti.addConfetti();
 		}
 	});
