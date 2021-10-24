@@ -15,7 +15,6 @@ function init() {
     pressToTalkButton.addEventListener('click', function() {
       if (textArea.value) {
         let textToSpeak = new SpeechSynthesisUtterance(textArea.value);
-        console.log(textArea.value);
         let selectedOption = dropdown.selectedOptions[0].getAttribute('data-name');
         for (const voice of voices) {
           if (voice.name === selectedOption) {
